@@ -1,23 +1,17 @@
-const loginForm = document.querySelector("#login-form");
-const loginInput = loginForm.querySelector("input");
-const loginButton = loginForm.querySelector("button");
-const greeting = document.querySelector("#greeting");
-
 const USERNAME_KEY = "username";
+const HIDDEN_CLASS = "hidden";
 
-function handleLoginForm(event) {
+$("#login-form").on("submit", function (event) {
   event.preventDefault();
-  localStorage.setItem(USERNAME_KEY, loginInput.value);
+  localStorage.setItem(USERNAME_KEY, $("#login-form input:first-child").val());
   paintUserName();
-}
+});
 
 function paintUserName() {
   const username = localStorage.getItem(USERNAME_KEY);
-  greeting.innerText = `Hello ${username}`;
-  loginForm.classList.add("hidden");
+  $("#greeting").text(`Hello ${username}`);
+  $("#login-form").addClass(HIDDEN_CLASS);
 }
-
-loginForm.addEventListener("submit", handleLoginForm);
 
 if (localStorage.getItem(USERNAME_KEY)) {
   paintUserName();
